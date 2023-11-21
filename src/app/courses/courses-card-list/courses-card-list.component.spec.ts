@@ -12,16 +12,23 @@ import {setupCourses} from '../common/setup-test-data';
 
 
 describe('CoursesCardListComponent', () => {
+  let component: CoursesCardListComponent;
+  let fixture: ComponentFixture<CoursesCardListComponent>;
 
-  beforeEach(() => {
+  beforeEach(async (() => {
     TestBed.configureTestingModule({
       imports: [CoursesModule]
-    });
-  });
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(CoursesCardListComponent);
+        component = fixture.componentInstance;
+      });
+  }) );
 
   it("should create the component", () => {
 
-   pending();
+   expect(component).toBeTruthy();
 
   });
 
