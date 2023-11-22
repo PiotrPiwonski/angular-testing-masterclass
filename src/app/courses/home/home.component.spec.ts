@@ -11,7 +11,7 @@ import {setupCourses} from '../common/setup-test-data';
 import {By} from '@angular/platform-browser';
 import {of} from 'rxjs';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {click} from '../common/test-utils';
+import {click} from "../common/test-utils";
 
 
 
@@ -81,17 +81,23 @@ describe('HomeComponent', () => {
   });
 
 
-  it("should display advanced courses when tab clicked", () => {
+  it("should display advanced courses when tab clicked",
+    (done: DoneFn) => {
     coursesService.findAllCourses.and.returnValue(of(setupCourses()));
     fixture.detectChanges();
     const tabs = el.queryAll(By.css(".mdc-tab"));
     click(tabs[1]);
     fixture.detectChanges();
-    const cardTitles = el.queryAll(By.css('.mat-mdc-card-title'));
-    expect(cardTitles.length).toBeGreaterThan(0,
-      'Could not find card titles');
-    expect(cardTitles[0].nativeElement.textContent)
-      .toContain('Angular Security Course');
+    setTimeout(() => {
+      fixture.detectChanges();
+      const cardTitles = el.queryAll(By.css('.mat-mdc-card-title'));
+      expect(cardTitles.length).toBeGreaterThan(0,
+        'Could not find card titles');
+      expect(cardTitles[0].nativeElement.textContent)
+        .toContain('Angular Security Course');
+      done();
+    }, 500);
+
   });
 
 });
