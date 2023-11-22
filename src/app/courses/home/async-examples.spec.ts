@@ -12,9 +12,11 @@ describe('Async Testing Examples', () => {
       expect(test).toBeTruthy();
       done();
     }, 1000);
+    expect(test).not.toBeTruthy();
   });
 
-  it('Asynchronous test example - setTimeout()', fakeAsync( () => {
+  it('Asynchronous test example - setTimeout()',
+    fakeAsync( () => {
     let test = false;
     setTimeout(() => {
       console.log('running assertions setTimeout()');
@@ -25,5 +27,21 @@ describe('Async Testing Examples', () => {
     flush();
     expect(test).toBeTruthy();
   }) );
+
+  fit('Asynchronous test example - plain Promise', () => {
+    let test = false;
+    console.log('Creating promise');
+    Promise.resolve().then(() => {
+      console.log('Promise first then() evaluated successfully');
+      // test = true;
+      return Promise.resolve();
+    })
+      .then(() => {
+        console.log('Promise second then() evaluated successfully');
+        test = true;
+      });
+    console.log('Running test assertions');
+    expect(test).toBeTruthy();
+  });
 
 });
